@@ -28,12 +28,13 @@ function HalfPriceDiscount(promotions,result) {
   let re = [];
   for(let str of promotions){if(str.type = '指定菜品半价'){re = str.items;}}
   for(let item of result){
-    if(item.id === re[0] || item.id === re[1]){item.light = 1;}
-    else{item.light = 0;}
+    for(let str of re) {
+      if (item.id === str) {item.light = 1;}
+    }
   }
   for(let item of result){
-    if(item.light === 0){sum2 += item.price*item.num;}
-    if(item.light === 1){sum2 += (item.price/2)*item.num}
+    if(item.light){sum2 += (item.price/2)*item.num;}
+    else{sum2 += item.price*item.num;}
   }
   return sum2;
 }
